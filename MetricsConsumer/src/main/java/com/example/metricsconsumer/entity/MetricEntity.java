@@ -4,10 +4,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
-import java.util.List;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "metric")
@@ -20,9 +19,9 @@ public class MetricEntity {
 
     private String description;
 
-    @OneToMany(mappedBy = "metric")
-//    @JsonIgnore
-    private List<MessageEntity> messages;
+    private double value;
+
+    private LocalDateTime timestamp;
 
     public MetricEntity() {
     }
@@ -51,11 +50,19 @@ public class MetricEntity {
         this.description = description;
     }
 
-    public List<MessageEntity> getMessages() {
-        return messages;
+    public double getValue() {
+        return value;
     }
 
-    public void setMessages(List<MessageEntity> messages) {
-        this.messages = messages;
+    public void setValue(double value) {
+        this.value = value;
+    }
+
+    public LocalDateTime getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(LocalDateTime timestamp) {
+        this.timestamp = timestamp;
     }
 }

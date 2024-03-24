@@ -2,9 +2,7 @@ package com.example.metricsproducer.mapper;
 
 import com.example.dto.Metric;
 import org.springframework.boot.actuate.metrics.MetricsEndpoint;
-import org.springframework.stereotype.Component;
 
-@Component
 public class MetricMapper {
     public static Metric mapToMetric(MetricsEndpoint.MetricDescriptor metric) {
         Metric mappedMetric = new Metric();
