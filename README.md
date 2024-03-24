@@ -18,11 +18,6 @@ curl -X GET http://localhost:8081/metrics
 curl -X GET http://localhost:8081/metrics/1
 `
 
-
-## Used Kafka configuration:
-
-
-
 ## Some Kafka commands (to be executed from downloaded Kafka folder)
 - Start Zookeeper  
 `
