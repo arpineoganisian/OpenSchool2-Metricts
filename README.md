@@ -1,7 +1,7 @@
 # OpenSchool2-Metrics
 Monitoring system using Kafka and Spring Actuator  
 
-## How to run the application
+## How to run Kafka
 - Download and start Kafka according to the [instructions](https://kafka.apache.org/quickstart#quickstart_startserver)
 
 ## How to test the application
