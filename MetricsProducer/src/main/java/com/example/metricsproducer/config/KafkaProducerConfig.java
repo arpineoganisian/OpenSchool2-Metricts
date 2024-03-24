@@ -4,16 +4,13 @@ import org.apache.kafka.clients.admin.NewTopic;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.config.TopicBuilder;
-import org.springframework.kafka.support.converter.JsonMessageConverter;
-import org.springframework.kafka.support.converter.RecordMessageConverter;
-
 
 @Configuration
 public class KafkaProducerConfig {
 
     /**
-     * Метод создает новый топик Kafka с именем "metrics-topic", конфигурирует его с 10 разделами
-     * и одной репликой и возвращает для обработки метрик.
+     * Creates a new Kafka topic named "metrics-topic", configures it with 10 partitions
+     * and 1 replica, and returns it for processing metrics.
      */
     @Bean
     public NewTopic topic() {
@@ -24,9 +21,9 @@ public class KafkaProducerConfig {
     }
 
     /**
-     * Метод создает и возвращает объект темы Kafka для обработки Dead Letter Topic (DLT).
-     * DLT (Dead Letter Topic) - это тема Kafka, куда перенаправляются сообщения,
-     * которые не удалось обработать в основной теме.
+     * Creates and returns a Kafka topic object for processing Dead Letter Topic (DLT).
+     * DLT (Dead Letter Topic) is a Kafka topic where messages are redirected
+     * that could not be processed in the main topic.
      */
     @Bean
     public NewTopic dlt() {
@@ -43,8 +40,8 @@ public class KafkaProducerConfig {
 //        };
 //    }
 
-    @Bean
-    public RecordMessageConverter converter() {
-        return new JsonMessageConverter();
-    }
+//    @Bean
+//    public RecordMessageConverter converter() {
+//        return new JsonMessageConverter();
+//    }
 }
