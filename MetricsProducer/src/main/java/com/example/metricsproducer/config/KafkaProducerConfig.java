@@ -1,9 +1,15 @@
 package com.example.metricsproducer.config;
 
+import com.example.dto.Metric;
 import org.apache.kafka.clients.admin.NewTopic;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.config.TopicBuilder;
+import org.springframework.kafka.core.KafkaOperations;
+import org.springframework.kafka.listener.CommonErrorHandler;
+import org.springframework.kafka.listener.DeadLetterPublishingRecoverer;
+import org.springframework.kafka.listener.DefaultErrorHandler;
+import org.springframework.util.backoff.FixedBackOff;
 
 @Configuration
 public class KafkaProducerConfig {
@@ -31,6 +37,26 @@ public class KafkaProducerConfig {
                 .partitions(1)
                 .replicas(1)
                 .build();
+    }
+
+    /**
+     * Method to configure and create a Kafka error handler.
+     * It sets up an error handler with mechanisms to handle and recover from Kafka errors,
+     * including publishing failed messages to a dead-letter topic and applying a fixed retry backoff strategy.
+     * FixedBackOff defines a fixed delay between attempts to republish
+     * a message in case of an error.
+     * In this case, a delay of 1000 milliseconds (1 second) between attempts is set,
+     * and the maximum number of attempts is 2.
+     *
+     * @param kafkaOperations Kafka operations for communication with the Kafka broker.
+     * @return Configured Kafka error handler.
+     */
+    @Bean
+    public CommonErrorHandler errorHandler(KafkaOperations<String, Metric> kafkaOperations) {
+        return new DefaultErrorHandler(
+                new DeadLetterPublishingRecoverer(kafkaOperations),
+                new FixedBackOff(1000L, 2L)
+        );
     }
 
 //    @Bean
